@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cabin", sans-serif;
+}
+
+body {
+	background-color: rgb(241, 241, 241);
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+
+.form {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+select {
+	font-size: 1.3rem;
+	padding: 10px 15px;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	//width: 80%;
+	display: flex;
+
+	outline: none;
+}
+
+.button {
+	padding: 5px 25px;
+	margin-left: 10px;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	/* padding: 10px 20px; */
+	border: 1px solid rgba(0, 0, 0, 0.75);
+	border-radius: 30px;
+	font-size: 16px;
+	cursor: pointer;
+	/* transition: background-color 250ms; */
+}
+
+li {
+	line-height: 180%;
+}
+
+.button:hover {
+	background-color: rgba(0, 0, 0, 0.85);
+}
+
+.gallery {
+	display: flex;
+	// max-width: 1200;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.details {
+	width: 100%;
+	padding: 0 10%;
+}
+
+.inner {
+	width: 600px;
+	font-size: 1.3em;
+
+	justify-content: center;
+	padding: 30px;
+}
+
+.dog-contain {
+	overflow: hidden;
+	width: 300px;
+	height: 230px;
+	margin: 10px;
+	position: relative;
+	border-radius: 10px;
+
+	.dog-pic {
+		// display: flex;
+		// justify-content: space-around;
+		object-fit: cover;
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 300px;
+		height: 250px;
+	}
+}
