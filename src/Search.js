@@ -117,7 +117,7 @@ function Search() {
 			let res_pic = await axios(config2);
 			const bark_img = JSON.parse(res_pic.request.response);
 
-			//setPicFront(bark_img);
+			setPicFront(bark_img);
 			//console.log(bark);
 			//console.log(bark_img[0].url);
 			//console.log(bark_img);
@@ -204,13 +204,21 @@ function Search() {
 				</button>
 			</form>
 			<div className="gallery">
-				{dogs && dogs?.map((dog, id) => <Details dog={dog} key={id} />)}
-				{/* {picFront.map &&
+				<div className="details">
+					<div className="inner">
+						<div className="col-1">
+							{picFront.map((pic, id) => (
+								<Front pic={pic} key={id} />
+							))}
+						</div>
+						<div className="col-2">
+							{dogs &&
+								dogs?.map((dog, id) => <Details dog={dog} key={id} />)}
+							{/* {picFront.map &&
 					picFront?.map((pic, id) => <Details pic={pic} key={id} />)} */}
-
-				{/* {picFront.map((pic, id) => (
-					<Front pic={pic} key={id} />
-				))} */}
+						</div>
+					</div>
+				</div>
 
 				{/* {pics ? pics?.map((dog, id) => <Gallery dog={dog} key={id} />) : ""} */}
 				{/* <h1>Gallery</h1> */}
