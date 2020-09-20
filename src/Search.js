@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Gallery from "./Gallery";
 import axios from "axios";
 import Details from "./Details";
+import Front from "./Front";
 
 function Search() {
 	const [query, setQuery] = useState("");
 	const [dogs, setDogs] = useState([]);
 	const [pics, setPics] = useState([]);
+	const [picFront, setPicFront] = useState([]);
 	const [list, setList] = useState([]);
 	//const [listImages, setListImages] = useState([]);
 	//const DOG_API = process.env.API_KEY;
@@ -60,7 +62,7 @@ function Search() {
 					output.push(key);
 				}
 			}
-			console.log("output " + output);
+			//console.log("output " + output);
 			setList(output);
 		} catch (error) {
 			console.log(error);
@@ -80,7 +82,7 @@ function Search() {
 
 	const onSubmit = async e => {
 		e.preventDefault();
-		console.log(query);
+		//console.log(query);
 
 		const config = {
 			method: "get",
@@ -89,6 +91,10 @@ function Search() {
 				"x-api-key": "86170d64-e812-4388-9a95-270019e80f9f"
 			}
 		};
+
+		//console.log(config2);
+
+		// https://api.TheDogAPI.com/images/search?8={{selected_8}}
 		try {
 			let res_info = await axios(config);
 
@@ -97,9 +103,32 @@ function Search() {
 			const data2 = await res.json();
 
 			const bark = JSON.parse(res_info.request.response);
+			//console.log(bark_img);
+			//console.log(bark);
+			//console.log(bark[0].id);
+
+			const config2 = {
+				method: "get",
+				url: `https://api.thedogapi.com/v1/images/search?breed_ids=${bark[0].id}&limit=1`,
+				headers: {
+					"x-api-key": "86170d64-e812-4388-9a95-270019e80f9f"
+				}
+			};
+			let res_pic = await axios(config2);
+			const bark_img = JSON.parse(res_pic.request.response);
+
+			//setPicFront(bark_img);
+			//console.log(bark);
+			//console.log(bark_img[0].url);
+			//console.log(bark_img);
+			//console.log(bark);
+			//{...bark, bark_img[0].url}
+			//setDogs(bark);
+			//const setNew = { ...bark, ...bark_img };
+			//console.log(setNew);
 			setDogs(bark);
 
-			console.log(data2.code);
+			// console.log(data2.code);
 			if (data2.code === 404) {
 				setPics(null);
 				return;
@@ -157,32 +186,52 @@ function Search() {
 				</select> */}
 
 				<select
+					className="ui selection dropdown"
 					onSelect={onSubmit}
 					value={query}
 					onChange={e => setQuery(e.target.value)}
 				>
-					<option>dog breed</option>
+					<option className="default text">Search for dog breeds</option>
 					{list.map(li => (
-						<option key={li}>{li}</option>
+						<option className="item" key={li}>
+							{li}
+						</option>
 					))}
 				</select>
 
-				<button className="button">FETCH!</button>
+				<button className="ui right labeled icon button">
+					FETCH! <i className="angle right icon"></i>
+				</button>
 			</form>
 			<div className="gallery">
 				{dogs && dogs?.map((dog, id) => <Details dog={dog} key={id} />)}
+				{/* {picFront.map &&
+					picFront?.map((pic, id) => <Details pic={pic} key={id} />)} */}
+
+				{/* {picFront.map((pic, id) => (
+					<Front pic={pic} key={id} />
+				))} */}
 
 				{/* {pics ? pics?.map((dog, id) => <Gallery dog={dog} key={id} />) : ""} */}
 				{/* <h1>Gallery</h1> */}
-
 				{pics ? (
-					<>
+					<div className="gallery-container">
 						{pics?.map((dog, id) => (
 							<Gallery dog={dog} key={id} />
 						))}
-					</>
+					</div>
 				) : (
-					<h3 className="warning">Sorry, no available images :( </h3>
+					<div className="warning">
+						<div className="ui icon message">
+							<i className="search icon"></i>
+							<div className="content">
+								<div className="header">Oh no, I'm sorry</div>
+								<p>
+									No available images, try searching for another breed.
+								</p>
+							</div>
+						</div>
+					</div>
 				)}
 			</div>
 		</>
