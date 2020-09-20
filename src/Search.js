@@ -241,8 +241,8 @@ function Search() {
 									<div className="content">
 										<div className="header">Oh no, I'm sorry</div>
 										<p>
-											No gallery to show, try searching
-											<br /> for another breed.
+											No gallery to show, try <br />
+											searching for another breed.
 										</p>
 									</div>
 								</div>
