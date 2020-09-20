@@ -6,6 +6,7 @@ import Front from "./Front";
 
 function Search() {
 	const [query, setQuery] = useState("");
+	const [query2, setQuery2] = useState("");
 	const [dogs, setDogs] = useState([]);
 	const [pics, setPics] = useState([]);
 	const [picFront, setPicFront] = useState([]);
@@ -42,28 +43,28 @@ function Search() {
 
 	const getList = async () => {
 		try {
-			//const list = `https://api.thedogapi.com/v1/breeds`;
-			const list = `https://dog.ceo/api/breeds/list/all`;
+			const list = `https://api.thedogapi.com/v1/breeds`;
+			//const list = `https://dog.ceo/api/breeds/list/all`;
 			const res_list = await fetch(list);
 			const data_list = await res_list.json();
 			//console.log(data_list);
 			//setList(data_list);
+			//console.log(data_list);
+			// let output = [];
+			// let dogs = data_list.message;
+			// for (let key in dogs) {
+			// 	if (dogs[key].length) {
+			// 		dogs[key].forEach(dog => {
+			// 			output.push(`${dog} ${key}`);
 
-			let output = [];
-			let dogs = data_list.message;
-			for (let key in dogs) {
-				if (dogs[key].length) {
-					dogs[key].forEach(dog => {
-						output.push(`${dog} ${key}`);
-
-						//console.log(output);
-					});
-				} else {
-					output.push(key);
-				}
-			}
+			// 			//console.log(output);
+			// 		});
+			// 	} else {
+			// 		output.push(key);
+			// 	}
+			// }
 			//console.log("output " + output);
-			setList(output);
+			setList(data_list);
 		} catch (error) {
 			console.log(error);
 		}
@@ -127,7 +128,7 @@ function Search() {
 			//const setNew = { ...bark, ...bark_img };
 			//console.log(setNew);
 			setDogs(bark);
-
+			setQuery2("aa");
 			// console.log(data2.code);
 			if (data2.code === 404) {
 				setPics(null);
@@ -187,14 +188,14 @@ function Search() {
 
 				<select
 					className="ui selection dropdown"
-					onSelect={onSubmit}
+					//onSelect={onSubmit}
 					value={query}
 					onChange={e => setQuery(e.target.value)}
 				>
 					<option className="default text">Search for dog breeds</option>
 					{list.map(li => (
-						<option className="item" key={li}>
-							{li}
+						<option className="item" key={li.name}>
+							{li.name}
 						</option>
 					))}
 				</select>
@@ -203,45 +204,53 @@ function Search() {
 					FETCH! <i className="angle right icon"></i>
 				</button>
 			</form>
-			<div className="gallery">
-				<div className="details">
-					<div className="inner">
-						<div className="col-1">
-							{picFront.map((pic, id) => (
-								<Front pic={pic} key={id} />
-							))}
-						</div>
-						<div className="col-2">
-							{dogs &&
-								dogs?.map((dog, id) => <Details dog={dog} key={id} />)}
-							{/* {picFront.map &&
-					picFront?.map((pic, id) => <Details pic={pic} key={id} />)} */}
-						</div>
-					</div>
-				</div>
 
-				{/* {pics ? pics?.map((dog, id) => <Gallery dog={dog} key={id} />) : ""} */}
-				{/* <h1>Gallery</h1> */}
-				{pics ? (
-					<div className="gallery-container">
-						{pics?.map((dog, id) => (
-							<Gallery dog={dog} key={id} />
-						))}
-					</div>
-				) : (
-					<div className="warning">
-						<div className="ui icon message">
-							<i className="search icon"></i>
-							<div className="content">
-								<div className="header">Oh no, I'm sorry</div>
-								<p>
-									No available images, try searching for another breed.
-								</p>
+			{query2 && (
+				<div className="gallery">
+					<div className="details">
+						<div className="inner">
+							<div className="col-1">
+								{picFront.map((pic, id) => (
+									<Front pic={pic} key={id} />
+								))}
+							</div>
+							<div className="col-2">
+								{dogs &&
+									dogs?.map((dog, id) => (
+										<Details dog={dog} key={id} />
+									))}
+								{/* {picFront.map &&
+					picFront?.map((pic, id) => <Details pic={pic} key={id} />)} */}
 							</div>
 						</div>
 					</div>
-				)}
-			</div>
+
+					{/* {pics ? pics?.map((dog, id) => <Gallery dog={dog} key={id} />) : ""} */}
+					{/* <h1>Gallery</h1> */}
+					<div className="gallery-container">
+						{pics ? (
+							<div className="gallery-container-inner">
+								{pics?.map((dog, id) => (
+									<Gallery dog={dog} key={id} />
+								))}
+							</div>
+						) : (
+							<div className="warning">
+								<div className="ui icon message">
+									<i className="search icon"></i>
+									<div className="content">
+										<div className="header">Oh no, I'm sorry</div>
+										<p>
+											No gallery to show, try searching for another
+											breed.
+										</p>
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
+				</div>
+			)}
 		</>
 	);
 }

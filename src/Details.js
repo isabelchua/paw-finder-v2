@@ -3,39 +3,6 @@ import React from "react";
 function Details({
 	dog: { name, breed_group, life_span, height, temperament, weight, bred_for }
 }) {
-	//  <div class="ui items">
-	// 			<div class="item">
-	// 				<div class="image">
-	// 					<img src="/images/wireframe/image.png" />
-	// 					{/* <img src={url} alt="doc pic" /> */}
-	// 				</div>
-	// 				<div class="content">
-	// 					<a class="header">{name}</a>
-	// 					<div class="meta">
-	// 						<span>Breed Group</span>
-	// 					</div>
-	// 					<div class="description">
-	// 						<p>{breed_group}</p>
-	// 					</div>
-	// 					<div class="extra">{breed_group} Additional Details</div>
-	// 				</div>
-	// 			</div>
-	// 			<div class="item">
-	// 				<div class="image">
-	// 					<img src="/images/wireframe/image.png" />
-	// 				</div>
-	// 				<div class="content">
-	// 					<a class="header">Header</a>
-	// 					<div class="meta">
-	// 						<span>Description</span>
-	// 					</div>
-	// 					<div class="description">
-	// 						<p></p>
-	// 					</div>
-	// 					<div class="extra">Additional Details</div>
-	// 				</div>
-	// 			</div>
-	// 		</div>
 	return (
 		<>
 			<li className="item">
