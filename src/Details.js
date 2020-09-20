@@ -4,7 +4,7 @@ function Details({
 	dog: { name, breed_group, life_span, height, temperament, weight, bred_for }
 }) {
 	return (
-		<>
+		<div className="detail-section">
 			<li className="item">
 				<strong>Name:</strong>
 				<h2>{name}</h2>
@@ -26,7 +26,7 @@ function Details({
 			<li className="item">
 				<strong>Temperament:</strong> {temperament}
 			</li>
-		</>
+		</div>
 	);
 }
 
